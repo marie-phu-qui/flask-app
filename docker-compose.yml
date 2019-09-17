@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  helloworld-service:
+    image: marie/calculator:1.0.0
+    build: .
+    command: python app.py
+    ports:
+      - 8484:5151
