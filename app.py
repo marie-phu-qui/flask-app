@@ -15,11 +15,10 @@ def login(username):
 def gryshka(number, multiplier):
     return "Your {} * {} is {}".format(number, multiplier, float(number) * float(multiplier))
 
-
-# @app.route("/subtract/<number>/<subtract>")
-# def subtract():
-#     result = number - subtract
-#     return "Hello subtract!"+ result
+@app.route("/subtract/<number>/<subtract>")
+def substract(number, subtract):
+    result = float(number) - float(subtract)
+    return "{} minus {} is {}".format(number, subtract, result)
 
 # @app.route("/add")
 # def add():
