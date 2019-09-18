@@ -7,3 +7,5 @@ services:
     command: python app.py
     ports:
       - 8484:5151
+    volumes:
+      - . /app
