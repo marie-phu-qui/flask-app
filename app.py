@@ -1,32 +1,37 @@
 from flask import Flask
-from flask import request
+from flask_restful import Resource, Api,reqparse
 
 app = Flask(__name__)
+api = Api(app)
 
-@app.route("/")
-def home():
-    return "Hello here is a bunch of functions with Flask endpoint!"
+class Home(Resource):
+    def get(self):
+        return "Hello here is a bunch of functions with Flask endpoint!"
 
-@app.route('/hello/<username>', methods=['GET'])
-def login(username):
-    return "hello " + username
+class HelloWorld(Resource):
+    def get(self):
+        return "Hello World!"
 
-@app.route("/multiply/<number>/<multiplier>")
-def gryshka(number, multiplier):
-    return "Your {} * {} is {}".format(number, multiplier, float(number) * float(multiplier))
+class HelloYou(Resource):
+    def get(self, name):        
+        return "Hello " + name
 
-@app.route("/subtract/<number>/<subtract>")
-def substract(number, subtract):
-    result = float(number) - float(subtract)
-    return "{} minus {} is {}".format(number, subtract, result)
+class Multiply(Resource):
+    def get(self, x, y):        
+        x = float(x)
+        y = float(y)
+        return "Hello " + str(x * y)
 
-# @app.route("/add")
-# def add():
-#     return "Hello addition!"
+class Yell(Resource):
+    def get(self, input_text):
+        yelled = input_text.upper()
+        return yelled
 
-# @app.route("/divide")
-# def divide():
-#     return "Hello divide!"
+api.add_resource(Home, '/')
+api.add_resource(HelloWorld, '/hello-world')
+api.add_resource(HelloYou, '/hello/<name>')
+api.add_resource(Multiply, '/multiply/<x>/<y>')
+api.add_resource(Yell, '/yell-it/<input_text>')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5151, debug=True)
