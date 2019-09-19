@@ -1,11 +1,16 @@
 version: '3'
 
 services:
-  helloworld-service:
-    image: marie/calculator:1.0.0
-    build: .
-    command: python app.py
+  server:
+    image: marie/flaskserver:0.0.0
+    build: ./server
+    command: python server.py
     ports:
       - 8484:5151
-    volumes:
-      - . /app
+  client:
+    image: marie/flaskclient:0.0.0
+    build: ./client
+    command: python client.py
+    network_mode: host
+    depends_on:
+      - server
